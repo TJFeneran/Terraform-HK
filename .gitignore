@@ -1,2 +1,2 @@
-terraform.exe
-.info.md
+*.exe
+.terraform/*
