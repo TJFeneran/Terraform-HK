@@ -12,8 +12,8 @@
 //configure provider
 provider "aws" {
 
-  //profile = terraform.workspace
-  //region = terraform.workspace == "prod" ? "us-east-1" : "us-east-2"
+  profile = "hitchkick"
+  region  = var.region
 
   default_tags {
     tags = {
@@ -40,7 +40,8 @@ resource "aws_vpc" "main" {
   instance_tenancy                 = "default"
 
   tags = {
-    Name = "${var.service_name} VPC"
+    Name   = "${var.service_name} VPC"
+    Region = var.region
   }
 }
 

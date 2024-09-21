@@ -1,11 +1,11 @@
 variable "environment" {
   description = "Environment"
   type        = string
-  default     = "stage"
+  default     = ""
 
   validation {
     condition     = contains(["stage", "prod"], var.environment)
-    error_message = "variable 'environment' is missing or invalid."
+    error_message = "variable 'environment' is missing or invalid. Remember to 'terraform workspace select <env>' first."
   }
 }
 
@@ -18,11 +18,11 @@ variable "service_name" {
 variable "region" {
   description = "AWS Region"
   type        = string
-  default     = "us-east-2"
+  default     = ""
 
   validation {
-    condition = containers(["us-east-1","us-east-2"], var.region)
-    error_message = "variable 'region' is missing or invalid"
+    condition     = contains(["us-east-1", "us-east-2"], var.region)
+    error_message = "variable 'region' is missing or invalid. Remember to 'terraform workspace select <env>' first."
   }
 }
 

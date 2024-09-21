@@ -1,8 +1,8 @@
 terraform {
   backend "s3" {
-    bucket         = "hk-tfstate-backend"
+    bucket         = "hitchkick-tfstate"
     region         = "us-east-2"
-    key            = "hitchkick-tf-state/terraform.tfstate"
+    key            = "terraform.tfstate"
     encrypt        = true
     dynamodb_table = "aws-tf-state"
   }
