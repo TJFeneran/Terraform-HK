@@ -6,17 +6,16 @@ terraform {
   }
 }
 
+################################################################################
+# VPC Endpoint(s)
+################################################################################
+
 locals {
   endpoints = var.create ? var.endpoints : tomap({})
   security_group_ids = [aws_security_group.sg_vpces.id]
 }
 
-################################################################################
-# VPC Endpoint(s)
-################################################################################
-
 // Security Groups for Interface Endpoints
-
 resource "aws_security_group" "sg_vpces" {
     name = "VPC Endpoints"
     description = "Security Group applied to interface VPC Endpoints"
