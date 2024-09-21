@@ -1,7 +1,7 @@
 variable "environment" {
   description = "Environment"
   type        = string
-  default     = "prod"
+  default     = "stage"
 
   validation {
     condition     = contains(["stage", "prod"], var.environment)
@@ -30,11 +30,11 @@ variable "vpc_cidr_block" {
 variable "public_subnet_cidrs" {
   description = "Public Subnet CIDRs"
   type        = list(string)
-  default     = ["10.0.0.0/20", "10.0.16.0/20", "10.0.32.0/20"]
+  default     = ["10.0.0.0/22", "10.0.4.0/22", "10.0.8.0/22"]
 }
 
 variable "private_subnet_cidrs" {
   description = "Private Subnet CIDRs"
   type        = list(string)
-  default     = ["10.0.48.0/20", "10.0.64.0/20", "10.0.80.0/20"]
+  default     = ["10.0.12.0/22", "10.0.16.0/22", "10.0.20.0/22"]
 }

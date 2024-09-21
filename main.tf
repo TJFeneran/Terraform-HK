@@ -11,6 +11,9 @@
 
 //configure provider
 provider "aws" {
+
+//  profile = "prod"
+
   default_tags {
     tags = {
       Environment = "${var.environment}"
