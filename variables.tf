@@ -37,7 +37,7 @@ variable "primary_region" {
   default     = ""
 
   validation {
-    condition     = contains(["us-east-1", "us-east-2"], var.primary_region)
+    condition     = length(var.primary_region) > 0
     error_message = "Variable 'primary_region' is missing or invalid. Right workspace / var-file?"
   }
 }
@@ -48,7 +48,7 @@ variable "failover_region" {
   default     = ""
 
   validation {
-    condition     = contains(["us-east-1", "us-east-2"], var.failover_region)
+    condition     = length(var.failover_region) > 0
     error_message = "Variable 'failover_region' is missing or invalid. Right workspace / var-file?"
   }
 }
@@ -63,10 +63,20 @@ variable "vpc_cidr_block_region_primary" {
   description = "CIDR block for Primary VPC"
   type        = string
   default     = ""
+
+  validation {
+    condition     = length(var.vpc_cidr_block_region_primary) > 0
+    error_message = "Variable 'vpc_cidr_block_region_primary' is missing or invalid. Right workspace / var-file?"
+  }
 }
 
 variable "vpc_cidr_block_region_failover" {
   description = "CIDR block for FailoverVPC"
   type        = string
   default     = ""
+
+  validation {
+    condition     = length(var.vpc_cidr_block_region_failover) > 0
+    error_message = "Variable 'vpc_cidr_block_region_failover' is missing or invalid. Right workspace / var-file?"
+  }
 }

@@ -15,14 +15,3 @@ variable "workload_name" {
   type        = string
   default     = ""
 }
-
-variable "region" {
-    description = "AWS Region"
-    type = string
-    default = ""
-
-    validation {
-        condition     = contains(["us-east-1", "us-east-2"], var.region)
-        error_message = "Variable 'region' is missing or invalid in module."
-    }
-}

@@ -19,7 +19,6 @@ resource "aws_vpc" "main" {
 
   tags = {
     Name   = "${var.workload_name} VPC"
-    Region = var.region
   }
 }
 
@@ -115,8 +114,4 @@ resource "aws_route_table_association" "public_subnet_association" {
   count          = length(aws_subnet.public_subnets)
   subnet_id      = element(aws_subnet.public_subnets[*].id, count.index)
   route_table_id = aws_route_table.public_rt.id
-}
-
-output "vpc_id" {
-  value = aws_vpc.main.id
 }

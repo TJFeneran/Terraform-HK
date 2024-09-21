@@ -7,10 +7,10 @@ terraform {
     dynamodb_table = "aws-tf-state"
   }
 
-  required_version = ">=0.13.0"
+  required_version = ">=0.13.1"
   required_providers {
     aws = {
-      version = ">= 2.7.0"
+      version = ">= 3.6.3"
       source  = "hashicorp/aws"
     }
   }

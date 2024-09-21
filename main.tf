@@ -54,7 +54,6 @@ provider "aws" {
 /////////////////////////////////////////////////////////////
 module "vpc_primary" {
   source         = "./modules/region-vpc"
-  region         = var.primary_region
   vpc_cidr_block = var.vpc_cidr_block_region_primary
   workload_name  = var.workload_name
   maxAZs         = var.maxAZs
@@ -63,39 +62,12 @@ module "vpc_primary" {
   }
 }
 
-
+/*
 module "vpc_secondary" {
   source         = "./modules/region-vpc"
-  region         = var.failover_region
   vpc_cidr_block = var.vpc_cidr_block_region_failover
   workload_name  = var.workload_name
   maxAZs         = var.maxAZs
-  providers = {
-    aws = aws.failover
-  }
-}
-
-/////////////////////////////////////////////////////////////
-// VPC Endpoints in Both Regions
-/////////////////////////////////////////////////////////////
-
-
-module "vpc_enpdoints_primary" {
-  vpc_id        = module.vpc_primary.vpc_id
-  source        = "./modules/region-vpc-endpoints"
-  region        = var.primary_region
-  workload_name = var.workload_name
-  providers = {
-    aws = aws.primary
-  }
-}
-
-/*
-module "vpc_enpdoints_failover" {
-  
-  source         = "./modules/region-vpc-endpoints"
-  region         = var.failover_region
-  workload_name   = var.service_name
   providers = {
     aws = aws.failover
   }
