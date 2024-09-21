@@ -5,24 +5,51 @@ variable "environment" {
 
   validation {
     condition     = contains(["stage", "prod"], var.environment)
-    error_message = "Variable 'environment' is missing or invalid. Remember to 'terraform workspace select stage|prod' first, and include -var-file=\"<env>.tfvars\" parameter during apply/destroy."
+    error_message = "Variable 'environment' is missing or invalid. Right workspace / var-file?"
   }
 }
 
 variable "service_name" {
   description = "Workload Name"
   type        = string
-  default     = "HitchKick"
+  default     = ""
+
+  validation {
+    condition     = length(var.service_name) > 0
+    error_message = "Variable 'service_name' is missing or invalid. Right workspace / var-file?"
+  }
 }
 
-variable "region" {
-  description = "AWS Region"
+variable "awscredsprofile" {
+  description = "AWS Creds Profile Name"
   type        = string
   default     = ""
 
   validation {
-    condition     = contains(["us-east-1", "us-east-2"], var.region)
-    error_message = "Variable 'region' is missing or invalid. Remember to 'terraform workspace select stage|prod' first, and include -var-file=\"<env>.tfvars\" parameter during apply/destroy."
+    condition     = length(var.awscredsprofile) > 0
+    error_message = "Variable 'awscredsprofile' is missing or invalid. Right workspace / var-file?"
+  }
+}
+
+variable "primary_region" {
+  description = "AWS Primary Region"
+  type        = string
+  default     = ""
+
+  validation {
+    condition     = contains(["us-east-1", "us-east-2"], var.primary_region)
+    error_message = "Variable 'primary_region' is missing or invalid. Right workspace / var-file?"
+  }
+}
+
+variable "failover_region" {
+  description = "AWS Failover Region"
+  type        = string
+  default     = ""
+
+  validation {
+    condition     = contains(["us-east-1", "us-east-2"], var.failover_region)
+    error_message = "Variable 'failover_region' is missing or invalid. Right workspace / var-file?"
   }
 }
 
@@ -32,8 +59,14 @@ variable "maxAZs" {
   default     = 3
 }
 
-variable "vpc_cidr_block" {
-  description = "CIDR block for VPC"
+variable "vpc_cidr_block_region_primary" {
+  description = "CIDR block for Primary VPC"
   type        = string
-  default     = "10.0.0.0/16"
+  default     = ""
+}
+
+variable "vpc_cidr_block_region_failover" {
+  description = "CIDR block for FailoverVPC"
+  type        = string
+  default     = ""
 }

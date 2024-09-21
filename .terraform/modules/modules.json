@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"failover_region_vpc","Source":"./modules/region-vpc","Dir":"modules/region-vpc"},{"Key":"primary_region_vpc","Source":"./modules/region-vpc","Dir":"modules/region-vpc"}]}
