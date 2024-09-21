@@ -18,8 +18,8 @@ provider "aws" {
   default_tags {
     tags = {
       Environment = "${var.environment}"
-      Terraform   = "true"
       Workload    = "${var.service_name}"
+      Terraform   = "true"
     }
   }
 }
