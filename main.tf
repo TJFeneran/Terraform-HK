@@ -12,7 +12,8 @@
 //configure provider
 provider "aws" {
 
-  //  profile = "prod"
+  //profile = terraform.workspace
+  //region = terraform.workspace == "prod" ? "us-east-1" : "us-east-2"
 
   default_tags {
     tags = {
@@ -41,7 +42,6 @@ resource "aws_vpc" "main" {
   tags = {
     Name = "${var.service_name} VPC"
   }
-
 }
 
 // Public Subnets
@@ -64,8 +64,8 @@ resource "aws_subnet" "private_subnets" {
 
   count                           = var.maxAZs <= length(data.aws_availability_zones.available.names) ? var.maxAZs : length(data.aws_availability_zones.available.names)
   vpc_id                          = aws_vpc.main.id
-  cidr_block                      = cidrsubnet(aws_vpc.main.cidr_block, 6, count.index)
-  ipv6_cidr_block                 = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 8, count.index)
+  cidr_block                      = cidrsubnet(aws_vpc.main.cidr_block, 6, count.index + var.maxAZs)
+  ipv6_cidr_block                 = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 8, count.index + var.maxAZs)
   availability_zone               = data.aws_availability_zones.available.names[count.index]
   assign_ipv6_address_on_creation = true
 
@@ -126,14 +126,14 @@ resource "aws_route_table" "public_rt" {
 
 // Route Table Associations - private subnets to default/main RT
 resource "aws_route_table_association" "private_subnet_association" {
-  count          = length(var.private_subnet_cidrs)
+  count          = length(aws_subnet.public_subnets)
   subnet_id      = element(aws_subnet.private_subnets[*].id, count.index)
   route_table_id = aws_default_route_table.default_rt.id
 }
 
 // Route Table Associations - public subnets to new RT with IGW
 resource "aws_route_table_association" "public_subnet_association" {
-  count          = length(var.public_subnet_cidrs)
+  count          = length(aws_subnet.public_subnets)
   subnet_id      = element(aws_subnet.public_subnets[*].id, count.index)
   route_table_id = aws_route_table.public_rt.id
 }
