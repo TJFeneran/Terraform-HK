@@ -101,7 +101,7 @@ module "vpc_endpoints_primary" {
     },
     dynamodb = {
       service         = "dynamodb"
-      service_type = "Gateway"
+      service_type    = "Gateway"
       route_table_ids = [module.vpc_primary.route_table_private.id, module.vpc_primary.route_table_public.id]
       tags            = { Name = "${var.workload_name} DynamoDB VPC Endpoint" }
     },
