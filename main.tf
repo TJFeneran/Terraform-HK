@@ -22,7 +22,7 @@ provider "aws" {
   default_tags {
     tags = {
       Environment = "${var.environment}"
-      Workload    = "${var.service_name}"
+      Workload    = "${var.workload_name}"
       Terraform   = "true"
     }
   }
@@ -37,7 +37,7 @@ provider "aws" {
   default_tags {
     tags = {
       Environment = "${var.environment}"
-      Workload    = "${var.service_name}"
+      Workload    = "${var.workload_name}"
       Terraform   = "true"
     }
   }
@@ -56,7 +56,7 @@ module "vpc_primary" {
   source         = "./modules/region-vpc"
   region         = var.primary_region
   vpc_cidr_block = var.vpc_cidr_block_region_primary
-  workload_name   = var.workload_name
+  workload_name  = var.workload_name
   maxAZs         = var.maxAZs
   providers = {
     aws = aws.primary
@@ -68,7 +68,7 @@ module "vpc_secondary" {
   source         = "./modules/region-vpc"
   region         = var.failover_region
   vpc_cidr_block = var.vpc_cidr_block_region_failover
-  workload_name   = var.workload_name
+  workload_name  = var.workload_name
   maxAZs         = var.maxAZs
   providers = {
     aws = aws.failover
@@ -81,9 +81,9 @@ module "vpc_secondary" {
 
 
 module "vpc_enpdoints_primary" {
-  vpc_id       = module.vpc_primary.vpc_id
-  source       = "./modules/region-vpc-endpoints"
-  region       = var.primary_region
+  vpc_id        = module.vpc_primary.vpc_id
+  source        = "./modules/region-vpc-endpoints"
+  region        = var.primary_region
   workload_name = var.workload_name
   providers = {
     aws = aws.primary

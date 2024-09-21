@@ -15,3 +15,9 @@ terraform workspace select prod
 terraform apply -var-file="prod.tfvars"
 
 must use workspace and tfvars file parameter required
+
+---
+latest:
+add module region_vpc_endpoints 
+s3 route
+in route table / route asssociation

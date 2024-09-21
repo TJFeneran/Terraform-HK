@@ -1,4 +1,4 @@
-workload_name                   = "HitchKick"
+workload_name                  = "HitchKick"
 environment                    = "prod"
 awscredsprofile                = "hitchkick"
 primary_region                 = "us-east-2"
