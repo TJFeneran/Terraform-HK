@@ -47,7 +47,6 @@ provider "aws" {
 // RESOURCE CREATION
 ////////////////////////////////////////////////////////////////////////
 
-
 /////////////////////////////////////////////////////////////
 // VPC General Setup in Both Regions
 // VPC, Subnets, IGW / EIGW, Route Tables
@@ -62,8 +61,7 @@ module "vpc_primary" {
   }
 }
 
-/*
-module "vpc_secondary" {
+module "vpc_failover" {
   source         = "./modules/region-vpc"
   vpc_cidr_block = var.vpc_cidr_block_region_failover
   workload_name  = var.workload_name
@@ -72,4 +70,69 @@ module "vpc_secondary" {
     aws = aws.failover
   }
 }
-*/
+
+/////////////////////////////////////////////////////////////
+// VPC Endpoints in Both Regions
+/////////////////////////////////////////////////////////////
+
+module "vpc_endpoints_primary" {
+  source = "./modules/region-vpc-endpoints"
+  vpc_id = module.vpc_primary.vpc_id
+  create = true
+
+  endpoints = {
+    s3 = {
+      service         = "s3"
+      service_type    = "Gateway"
+      route_table_ids = [module.vpc_primary.route_table_private.id, module.vpc_primary.route_table_public.id]
+      tags            = { Name = "${var.workload_name} S3 Gateway VPC Endpoint" }
+    },
+    ssm = {
+      service             = "ssm"
+      private_dns_enabled = true
+      subnet_ids          = module.vpc_primary.public_subnets[*].id
+      tags                = { Name = "${var.workload_name} S3 SSM VPC Endpoint" }
+    },
+    ssmmessages = {
+      service             = "ssmmessages"
+      private_dns_enabled = true
+      subnet_ids          = module.vpc_primary.public_subnets[*].id
+      tags                = { Name = "${var.workload_name} SSM Messages VPC Endpoint" }
+    }
+  }
+
+  providers = {
+    aws = aws.primary
+  }
+}
+
+module "vpc_endpoints_failover" {
+  source = "./modules/region-vpc-endpoints"
+  vpc_id = module.vpc_failover.vpc_id
+  create = true
+
+  endpoints = {
+    s3 = {
+      service         = "s3"
+      service_type    = "Gateway"
+      route_table_ids = [module.vpc_failover.route_table_private.id, module.vpc_failover.route_table_public.id]
+      tags            = { Name = "${var.workload_name} S3 Gateway VPC Endpoint" }
+    },
+    ssm = {
+      service             = "ssm"
+      private_dns_enabled = true
+      subnet_ids          = module.vpc_failover.public_subnets[*].id
+      tags                = { Name = "${var.workload_name} S3 SSM VPC Endpoint" }
+    },
+    ssmmessages = {
+      service             = "ssmmessages"
+      private_dns_enabled = true
+      subnet_ids          = module.vpc_failover.public_subnets[*].id
+      tags                = { Name = "${var.workload_name} SSM Messages VPC Endpoint" }
+    }
+  }
+
+  providers = {
+    aws = aws.failover
+  }
+}

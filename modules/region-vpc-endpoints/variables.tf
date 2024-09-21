@@ -28,6 +28,12 @@ variable "subnet_ids" {
   default     = []
 }
 
+variable "route_table_ids" {
+  description = "Route table IDs to associate with the VPC endpoints"
+  type        = list(string)
+  default     = []
+}
+
 variable "tags" {
   description = "A map of tags to use on all resources"
   type        = map(string)
