@@ -5,7 +5,7 @@ variable "environment" {
 
   validation {
     condition     = contains(["stage", "prod"], var.environment)
-    error_message = "variable 'environment' is missing or invalid. Remember to 'terraform workspace select <env>' first."
+    error_message = "Variable 'environment' is missing or invalid. Remember to 'terraform workspace select stage|prod' first, and include -var-file=\"<env>.tfvars\" parameter during apply/destroy."
   }
 }
 
@@ -22,7 +22,7 @@ variable "region" {
 
   validation {
     condition     = contains(["us-east-1", "us-east-2"], var.region)
-    error_message = "variable 'region' is missing or invalid. Remember to 'terraform workspace select <env>' first."
+    error_message = "Variable 'region' is missing or invalid. Remember to 'terraform workspace select stage|prod' first, and include -var-file=\"<env>.tfvars\" parameter during apply/destroy."
   }
 }
 
