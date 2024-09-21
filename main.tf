@@ -12,7 +12,7 @@
 //configure provider
 provider "aws" {
 
-  profile = "hitchkick"
+  profile = "hitchkicks"
   region  = var.region
 
   default_tags {
