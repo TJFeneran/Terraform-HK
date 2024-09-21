@@ -52,11 +52,11 @@ provider "aws" {
 // VPC General Setup in Both Regions
 // VPC, Subnets, IGW / EIGW, Route Tables
 /////////////////////////////////////////////////////////////
-module "primary_region_vpc" {
+module "vpc_primary" {
   source         = "./modules/region-vpc"
   region         = var.primary_region
   vpc_cidr_block = var.vpc_cidr_block_region_primary
-  service_name   = var.service_name
+  workload_name   = var.workload_name
   maxAZs         = var.maxAZs
   providers = {
     aws = aws.primary
@@ -64,11 +64,11 @@ module "primary_region_vpc" {
 }
 
 
-module "failover_region_vpc" {
+module "vpc_secondary" {
   source         = "./modules/region-vpc"
   region         = var.failover_region
   vpc_cidr_block = var.vpc_cidr_block_region_failover
-  service_name   = var.service_name
+  workload_name   = var.workload_name
   maxAZs         = var.maxAZs
   providers = {
     aws = aws.failover
@@ -78,3 +78,26 @@ module "failover_region_vpc" {
 /////////////////////////////////////////////////////////////
 // VPC Endpoints in Both Regions
 /////////////////////////////////////////////////////////////
+
+
+module "vpc_enpdoints_primary" {
+  vpc_id       = module.vpc_primary.vpc_id
+  source       = "./modules/region-vpc-endpoints"
+  region       = var.primary_region
+  workload_name = var.workload_name
+  providers = {
+    aws = aws.primary
+  }
+}
+
+/*
+module "vpc_enpdoints_failover" {
+  
+  source         = "./modules/region-vpc-endpoints"
+  region         = var.failover_region
+  workload_name   = var.service_name
+  providers = {
+    aws = aws.failover
+  }
+}
+*/

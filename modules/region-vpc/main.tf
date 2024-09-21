@@ -18,7 +18,7 @@ resource "aws_vpc" "main" {
   instance_tenancy                 = "default"
 
   tags = {
-    Name   = "${var.service_name} VPC"
+    Name   = "${var.workload_name} VPC"
     Region = var.region
   }
 }
@@ -34,7 +34,7 @@ resource "aws_subnet" "public_subnets" {
   assign_ipv6_address_on_creation = true
 
   tags = {
-    Name = "${var.service_name} Public Subnet ${count.index + 1}"
+    Name = "${var.workload_name} Public Subnet ${count.index + 1}"
   }
 }
 
@@ -49,7 +49,7 @@ resource "aws_subnet" "private_subnets" {
   assign_ipv6_address_on_creation = true
 
   tags = {
-    Name = "${var.service_name} Private Subnet ${count.index + 1}"
+    Name = "${var.workload_name} Private Subnet ${count.index + 1}"
   }
 }
 
@@ -58,7 +58,7 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = "${var.service_name} Internet Gateway"
+    Name = "${var.workload_name} Internet Gateway"
   }
 }
 
@@ -67,7 +67,7 @@ resource "aws_egress_only_internet_gateway" "eigw" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = "${var.service_name} Egress Gateway"
+    Name = "${var.workload_name} Egress Gateway"
   }
 }
 
@@ -80,7 +80,7 @@ resource "aws_default_route_table" "default_rt" {
   default_route_table_id = aws_vpc.main.default_route_table_id
 
   tags = {
-    Name = "${var.service_name} Private Route Table (Default)"
+    Name = "${var.workload_name} Private Route Table (Default)"
   }
 }
 
@@ -99,7 +99,7 @@ resource "aws_route_table" "public_rt" {
   }
 
   tags = {
-    Name = "${var.service_name} Public Route Table"
+    Name = "${var.workload_name} Public Route Table"
   }
 }
 
@@ -115,4 +115,8 @@ resource "aws_route_table_association" "public_subnet_association" {
   count          = length(aws_subnet.public_subnets)
   subnet_id      = element(aws_subnet.public_subnets[*].id, count.index)
   route_table_id = aws_route_table.public_rt.id
+}
+
+output "vpc_id" {
+  value = aws_vpc.main.id
 }

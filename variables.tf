@@ -9,14 +9,14 @@ variable "environment" {
   }
 }
 
-variable "service_name" {
+variable "workload_name" {
   description = "Workload Name"
   type        = string
   default     = ""
 
   validation {
-    condition     = length(var.service_name) > 0
-    error_message = "Variable 'service_name' is missing or invalid. Right workspace / var-file?"
+    condition     = length(var.workload_name) > 0
+    error_message = "Variable 'workload_name' is missing or invalid. Right workspace / var-file?"
   }
 }
 
