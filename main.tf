@@ -73,12 +73,12 @@ module "vpc_failover" {
 
 /////////////////////////////////////////////////////////////
 // VPC Endpoints in Both Regions
+// S3 Gateway, DynamoDB Gateway, SSM & SSM Messages
 /////////////////////////////////////////////////////////////
 
 module "vpc_endpoints_primary" {
   source = "./modules/region-vpc-endpoints"
   vpc_id = module.vpc_primary.vpc_id
-  create = false
 
   endpoints = {
     s3 = {
@@ -104,7 +104,7 @@ module "vpc_endpoints_primary" {
       service_type    = "Gateway"
       route_table_ids = [module.vpc_primary.route_table_private.id, module.vpc_primary.route_table_public.id]
       tags            = { Name = "${var.workload_name} DynamoDB VPC Endpoint" }
-    },
+    }
   }
 
   providers = {
@@ -115,7 +115,6 @@ module "vpc_endpoints_primary" {
 module "vpc_endpoints_failover" {
   source = "./modules/region-vpc-endpoints"
   vpc_id = module.vpc_failover.vpc_id
-  create = false
 
   endpoints = {
     s3 = {

@@ -11,7 +11,6 @@ terraform {
 ################################################################################
 
 locals {
-  endpoints = var.create ? var.endpoints : tomap({})
   security_group_ids = [aws_security_group.sg_vpces.id]
 }
 
@@ -39,7 +38,7 @@ resource "aws_security_group" "sg_vpces" {
 }
 
 data "aws_vpc_endpoint_service" "this" {
-  for_each = local.endpoints
+  for_each = var.endpoints
 
   service      = lookup(each.value, "service", null)
   service_name = lookup(each.value, "service_name", null)
@@ -51,7 +50,7 @@ data "aws_vpc_endpoint_service" "this" {
 }
 
 resource "aws_vpc_endpoint" "this" {
-  for_each = local.endpoints
+  for_each = var.endpoints
 
   vpc_id            = var.vpc_id
   service_name      = data.aws_vpc_endpoint_service.this[each.key].service_name

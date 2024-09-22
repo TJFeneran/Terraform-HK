@@ -1,9 +1,3 @@
-variable "create" {
-  description = "Determines whether resources will be created"
-  type        = bool
-  default     = true
-}
-
 variable "vpc_id" {
   description = "The ID of the VPC in which the endpoint will be used"
   type        = string
