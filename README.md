@@ -3,26 +3,24 @@ Infrastructure-as-Code to deploy HitchKick AWS Resources
 
 ## Scope
 
-Network Foundation
-VPCs
-Subnets (Private & Public)
-IGW / EIGW
-Route Table(s) & Routes
-VPC Endpoints
+- Network Foundation
+- VPCs
+- Subnets (Private & Public)
+- IGW / EIGW
+- Route Table(s) & Routes
+- VPC Endpoints
 
 ## Usage
 Setup back-end for tfstate:
-    - (manual) Create S3 bucket
-    - (manual) Create DynamoDB table
+- (manual) Create S3 bucket
+- (manual) Create DynamoDB table
 
+Configure credentials
 
+### Required: Select Workspace (prod | stage)
+`terraform workspace select prod`
 
-
-
-### Required: Select Workspace
-`terraform workspace select [_prod_ or _stage_]`
-
-### Required: load environment variables using _var-file_ parameter
+### Required: load environment variables using _var-file_ parameter as part of terraform invokation
 `terraform apply -var-file="prod.tfvars"`
 
 ## Prerequisites
@@ -31,9 +29,9 @@ AWS CLI
 
 ## Credentials
 Local (default config file):
-    - (manual) set a profile for each environment
+- (manual) set a profile for each environment
 
 Remote:
-    - TBD
+- TBD
 
 ## Environment Variables (tfvars)
