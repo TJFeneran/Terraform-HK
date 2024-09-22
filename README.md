@@ -42,6 +42,7 @@ _*switch workspaces as necessary*_
 ## Prerequisites
 * Terraform CLI
 * AWS CLI
+* AWS Environment with Proper Credentials
 
 ## Environment Variables (tfvars)
 Variables for each environment 
