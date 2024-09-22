@@ -20,6 +20,11 @@ Infrastructure-as-Code to deploy HitchKick AWS Resources
   - PK: *LockID (String)*
   - *TODO*: table policy
 ### 2. Configure credentials
+Local (default config file):
+* (manual) set a profile for each environment
+
+Remote:
+* TBD
 ### 3. `terraform init`
 Will load `backend.tf` during init, and configure the remote storage for *tfstate*
 
@@ -32,13 +37,6 @@ Will load `backend.tf` during init, and configure the remote storage for *tfstat
 ## Prerequisites
 * Terraform CLI
 * AWS CLI
-
-## Credentials
-Local (default config file):
-* (manual) set a profile for each environment
-
-Remote:
-* TBD
 
 ## Environment Variables (tfvars)
 Variables for each environment 
