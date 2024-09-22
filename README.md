@@ -48,4 +48,3 @@ _*switch workspaces as necessary*_
 Variables for each environment 
 * prod: `prod.tfvars`
 * stage: `stage.tfvars`
-  
