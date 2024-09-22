@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"vpc_failover","Source":"./modules/vpc","Dir":"modules/vpc"},{"Key":"vpc_primary","Source":"./modules/vpc","Dir":"modules/vpc"}]}

@@ -1,43 +1,8 @@
-//configure provider (primary region)
-provider "aws" {
-
-  alias   = "primary"
-  profile = var.awscredsprofile
-  region  = var.primary_region
-
-  default_tags {
-    tags = {
-      Environment = "${var.environment}"
-      Workload    = "${var.workload_name}"
-      Terraform   = "true"
-    }
-  }
-}
-
-//configure provider (failover region)
-provider "aws" {
-
-  alias   = "failover"
-  profile = var.awscredsprofile
-  region  = var.failover_region
-
-  default_tags {
-    tags = {
-      Environment = "${var.environment}"
-      Workload    = "${var.workload_name}"
-      Terraform   = "true"
-    }
-  }
-}
-
-////////////////////////////////////////////////////////////////////////
-// RESOURCE CREATION
-////////////////////////////////////////////////////////////////////////
-
 /////////////////////////////////////////////////////////////
 // VPC General Setup in Primary & Failover Regions
 // VPC, Subnets, IGW / EIGW, Route Tables
 /////////////////////////////////////////////////////////////
+
 module "vpc_primary" {
   source         = "./modules/vpc"
   vpc_cidr_block = var.vpc_cidr_block_region_primary
