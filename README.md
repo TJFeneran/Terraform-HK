@@ -27,6 +27,7 @@ Remote:
   - If new: Capacity type: On-Demand (1 RCU / 1 WCU), PK: *LockID* (String)
   - *TODO*: table policy
   - Assign bucket name in `backend.tf`
+  (manual) Assign values for _bucket name_ and _dynamodb table_. Confirm _AWS Region_ and other variables in `backend.tf`
 
 ### 3. `terraform init`
 Will load `backend.tf` during init, and configure the remote storage for *tfstate*
