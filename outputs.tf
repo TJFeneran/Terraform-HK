@@ -19,3 +19,11 @@ output "aurora_failover_writer" {
 output "aurora_failover_reader" {
   value = aws_rds_cluster.failover.reader_endpoint
 }
+
+output "aurora_username" {
+  value = aws_rds_cluster.primary.master_username
+}
+output "aurora_password" {
+  value = aws_rds_cluster.primary.master_password
+  sensitive = true
+}
