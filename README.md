@@ -2,6 +2,7 @@
 Infrastructure-as-Code to deploy HitchKick AWS Resources
 
 ## Scope
+Primary & Secondary AWS Regions
 
 * VPCs
 * Subnets (Private & Public)
