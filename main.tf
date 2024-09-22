@@ -48,11 +48,11 @@ provider "aws" {
 ////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////
-// VPC General Setup in Both Regions
+// VPC General Setup in Primary & Failover Regions
 // VPC, Subnets, IGW / EIGW, Route Tables
 /////////////////////////////////////////////////////////////
 module "vpc_primary" {
-  source         = "./modules/region-vpc"
+  source         = "./modules/vpc"
   vpc_cidr_block = var.vpc_cidr_block_region_primary
   workload_name  = var.workload_name
   maxAZs         = var.maxAZs
@@ -62,7 +62,7 @@ module "vpc_primary" {
 }
 
 module "vpc_failover" {
-  source         = "./modules/region-vpc"
+  source         = "./modules/vpc"
   vpc_cidr_block = var.vpc_cidr_block_region_failover
   workload_name  = var.workload_name
   maxAZs         = var.maxAZs
@@ -72,12 +72,12 @@ module "vpc_failover" {
 }
 
 /////////////////////////////////////////////////////////////
-// VPC Endpoints in Both Regions
+// VPC Endpoints in Primary & Failover Regions
 // S3 Gateway, DynamoDB Gateway, SSM & SSM Messages
 /////////////////////////////////////////////////////////////
 
 module "vpc_endpoints_primary" {
-  source = "./modules/region-vpc-endpoints"
+  source = "./modules/vpc-endpoints"
   vpc_id = module.vpc_primary.vpc_id
 
   endpoints = {
@@ -113,7 +113,7 @@ module "vpc_endpoints_primary" {
 }
 
 module "vpc_endpoints_failover" {
-  source = "./modules/region-vpc-endpoints"
+  source = "./modules/vpc-endpoints"
   vpc_id = module.vpc_failover.vpc_id
 
   endpoints = {

@@ -1,23 +1,31 @@
-HitchKick Terraform | Infrastructure-as-Code to deploy HitchKick AWS Resources
+#HitchKick Terraform | Infrastructure-as-Code to deploy HitchKick AWS Resources
 
-Two regions
+
+##Scope
+
+Network Foundation
 VPCs
 Subnets (Private & Public)
 IGW / EIGW
 Route Table(s) & Routes
+VPC Endpoints
 
-terraform workspaces:
-stage
-prod
+##Usage
+###Required: Select Workspace
+terraform workspace select [**prod** or **stage**]
 
-ex usage:
-terraform workspace select prod
+###Required: load environment variables using var-file parameter
 terraform apply -var-file="prod.tfvars"
 
-must use workspace and tfvars file parameter required
+##Prerequisites
+Terraform CLI
+AWS CLI
 
----
-latest:
-add module region_vpc_endpoints 
-s3 route
-in route table / route asssociation
+##Credentials
+Local (default config file):
+    - (manual) set a profile for each environment
+
+Remote:
+    - TBD
+
+##Environment Variables (tfvars)
