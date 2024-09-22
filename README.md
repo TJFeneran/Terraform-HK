@@ -18,10 +18,10 @@ Remote:
 * TBD
 
 ### 2. Setup remote back-end for *tfstate*:
-* (manual) Create S3 Bucket 
+* S3 Bucket 
   - Use existing bucket, or create new
   - If new: enable object versioning, others default
-* (manual) Create DynamoDB table and/or Configure `backend.tf`
+* DynamoDB Table
   - Use existing table, or create new
   - If new: Capacity type: On-Demand (1 RCU / 1 WCU), PK: *LockID* (String)
   - *TODO*: table policy
