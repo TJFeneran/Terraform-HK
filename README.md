@@ -3,12 +3,11 @@ Infrastructure-as-Code to deploy HitchKick AWS Resources
 
 ## Scope
 
-- Network Foundation
-- VPCs
-- Subnets (Private & Public)
-- IGW / EIGW
-- Route Table(s) & Routes
-- VPC Endpoints
+1. VPCs
+2. Subnets (Private & Public)
+3. IGW / EIGW
+4. Route Table(s) & Routes
+5. VPC Endpoints
 
 ## Usage
 Setup back-end for tfstate:
