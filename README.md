@@ -21,12 +21,10 @@ Remote:
 * (manual) Create S3 Bucket 
   - Use existing bucket, or create new
   - If new: enable object versioning, others default
-  - Assign bucket name in `backend.tf`
 * (manual) Create DynamoDB table and/or Configure `backend.tf`
   - Use existing table, or create new
   - If new: Capacity type: On-Demand (1 RCU / 1 WCU), PK: *LockID* (String)
   - *TODO*: table policy
-  - Assign bucket name in `backend.tf`
   (manual) Assign values for _bucket name_ and _dynamodb table_. Confirm _AWS Region_ and other variables in `backend.tf`
 
 ### 3. `terraform init`
