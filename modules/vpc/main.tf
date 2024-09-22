@@ -52,6 +52,21 @@ resource "aws_subnet" "private_subnets" {
   }
 }
 
+// Database Subnets
+resource "aws_subnet" "database_subnets" {
+
+  count                           = var.maxAZs <= length(data.aws_availability_zones.available.names) ? var.maxAZs : length(data.aws_availability_zones.available.names)
+  vpc_id                          = aws_vpc.main.id
+  cidr_block                      = cidrsubnet(aws_vpc.main.cidr_block, 6, count.index + (var.maxAZs * 2))
+  ipv6_cidr_block                 = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 8, count.index + (var.maxAZs * 2))
+  availability_zone               = data.aws_availability_zones.available.names[count.index]
+  assign_ipv6_address_on_creation = true
+
+  tags = {
+    Name = "${var.workload_name} Database Subnet ${count.index + 1}"
+  }
+}
+
 // IGW 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
@@ -115,3 +130,4 @@ resource "aws_route_table_association" "public_subnet_association" {
   subnet_id      = element(aws_subnet.public_subnets[*].id, count.index)
   route_table_id = aws_route_table.public_rt.id
 }
+

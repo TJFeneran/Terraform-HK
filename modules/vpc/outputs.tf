@@ -12,6 +12,10 @@ output "public_subnets" {
   value = aws_subnet.public_subnets
 }
 
+output "database_subnets" {
+  value = aws_subnet.database_subnets
+}
+
 output "route_table_private" {
   value = aws_default_route_table.default_rt
 }

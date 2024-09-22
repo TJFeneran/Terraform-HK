@@ -80,3 +80,15 @@ variable "vpc_cidr_block_region_failover" {
     error_message = "Variable 'vpc_cidr_block_region_failover' is missing or invalid. Right workspace / var-file?"
   }
 }
+
+variable "aurora_global_primary_hosts" {
+  description = "Default number of instances in regional cluster"
+  type        = number
+  default     = 0
+}
+
+variable "aurora_global_failover_hosts" {
+  description = "Default number of instances in regional cluster"
+  type        = number
+  default     = 0
+}

@@ -5,7 +5,7 @@ Infrastructure-as-Code to deploy HitchKick AWS Resources
 Primary & Secondary AWS Regions
 
 * VPCs
-* Subnets (Private & Public)
+* Subnets (Private & Public & Database)
 * IGW / EIGW
 * Route Table(s) & Routes
 * VPC Endpoints
