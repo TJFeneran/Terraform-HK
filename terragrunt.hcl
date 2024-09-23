@@ -7,9 +7,9 @@ terraform {
 }
 
 generate "provider" {
-  path = "provider.tf"
+  path      = "provider.tf"
   if_exists = "overwrite_terragrunt"
-  contents = <<EOF
+  contents  = <<EOF
 provider "aws" {
   alias = "primary"
   region = "${local.common_vars.region_primary}"
@@ -39,7 +39,7 @@ EOF
 generate "backend" {
   path      = "backend.tf"
   if_exists = "overwrite_terragrunt"
-  contents = <<EOF
+  contents  = <<EOF
 terraform {
   backend "s3" {
     bucket         = "hitchkick-tfstate"

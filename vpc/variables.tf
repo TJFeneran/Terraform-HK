@@ -4,25 +4,25 @@ variable "workload_name" {
   default     = ""
 }
 
-variable "primary_region" {
+variable "region_primary" {
   description = "AWS Primary Region"
   type        = string
   default     = ""
 
   validation {
-    condition     = length(var.primary_region) > 0
-    error_message = "Variable 'primary_region' is missing or invalid."
+    condition     = length(var.region_primary) > 0
+    error_message = "Variable 'region_primary' is missing or invalid."
   }
 }
 
-variable "failover_region" {
+variable "region_failover" {
   description = "AWS Failover Region"
   type        = string
   default     = ""
 
   validation {
-    condition     = length(var.failover_region) > 0
-    error_message = "Variable 'failover_region' is missing or invalid."
+    condition     = length(var.region_failover) > 0
+    error_message = "Variable 'region_failover' is missing or invalid."
   }
 }
 

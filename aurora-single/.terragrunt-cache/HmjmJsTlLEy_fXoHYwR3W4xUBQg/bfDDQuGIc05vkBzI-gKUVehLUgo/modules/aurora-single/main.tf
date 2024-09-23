@@ -1,49 +1,54 @@
-data "aws_ssm_parameter" "vpc-cidr-primary" {
-  name = "vpc-cidr-primary"
+################################################################################
+# Single-Region Aurora Cluster
+################################################################################
+provider "aws" {
+  region = local.region
 }
 
-data "aws_subnets" "database_subnets_primary" {
+data "aws_ssm_parameter" "vpc-cidr" {
+  name = "vpc-cidr-${var.region}"
+}
+
+data "aws_subnets" "database_subnets" {
   filter {
     name   = "vpc-id"
-    values = [data.aws_ssm_parameter.vpc-cidr-primary.insecure_value]
+    values = [data.aws_ssm_parameter.vpc-cidr.insecure_value]
   }
 
   tags = {
     Tier = "database"
   }
-
-  provider = aws.primary
 }
 
-resource "aws_rds_cluster" "primary" {
-  engine                    = aws_rds_global_cluster.auroraglobal.engine
-  engine_version            = aws_rds_global_cluster.auroraglobal.engine_version
-  cluster_identifier        = "cluster-primary"
+locals {
+  region = var.region 
+}
+
+resource "aws_rds_cluster" "db_cluster" {
+  engine                    = "aurora-postgresql"
+  engine_version            = "15.4"
   master_username           = "root"
   master_password           = random_password.master.result
-  global_cluster_identifier = aws_rds_global_cluster.auroraglobal.id
-  db_subnet_group_name      = aws_db_subnet_group.aurora_global_database_primary.name
+  cluster_identifier        = var.cluster_name
+  db_subnet_group_name      = aws_db_subnet_group.aurora_database.name
   skip_final_snapshot       = true
-  kms_key_id                = aws_kms_key.primary.arn
+  kms_key_id                = aws_kms_key.aurorakey.arn
 
   lifecycle {
     ignore_changes = [engine_version]
   }
 
-  provider = aws.primary
 }
 
-resource "aws_rds_cluster_instance" "primary" {
-  count                = var.aurora_global_primary_hosts
-  engine               = aws_rds_global_cluster.auroraglobal.engine
-  engine_version       = aws_rds_global_cluster.auroraglobal.engine_version
-  identifier           = "primary-cluster-instance-${count.index}"
-  cluster_identifier   = aws_rds_cluster.primary.id
+resource "aws_rds_cluster_instance" "db_instance" {
+  count                = var.instances
+  engine               = "aurora-postgresql"
+  engine_version       = "15.4"
+  identifier           = "instance-${count.index}"
+  cluster_identifier   = aws_rds_cluster.db_cluster.id
   instance_class       = "db.r7g.large"
-  db_subnet_group_name = aws_db_subnet_group.aurora_global_database_primary.name
+  db_subnet_group_name = aws_db_subnet_group.aurora_database.name
   monitoring_interval  = 0
-
-  provider = aws.primary
 }
 
 ################################################################################
@@ -92,16 +97,15 @@ data "aws_iam_policy_document" "rds" {
   }
 }
 
-resource "aws_kms_key" "primary" {
+resource "aws_kms_key" "aurorakey" {
   policy   = data.aws_iam_policy_document.rds.json
-  provider = aws.primary
 }
 
 resource "aws_db_subnet_group" "aurora_database" {
-  subnet_ids = data.aws_subnets.database_subnets_primary.ids
+  subnet_ids = data.aws_subnets.database_subnets.ids
 
   tags = {
     Name = "${var.workload_name} DB subnet group"
   }
-  provider = aws.primary
+  
 }

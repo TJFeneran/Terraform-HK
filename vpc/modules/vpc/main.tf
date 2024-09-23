@@ -1,3 +1,7 @@
+################################################################################
+# VPC
+################################################################################
+
 terraform {
   required_providers {
     aws = {
@@ -5,10 +9,6 @@ terraform {
     }
   }
 }
-
-################################################################################
-# VPC
-################################################################################
 
 data "aws_availability_zones" "available" {}
 
@@ -38,6 +38,7 @@ resource "aws_subnet" "public_subnets" {
 
   tags = {
     Name = "${var.workload_name} Public Subnet ${count.index + 1}"
+    Tier = "public"
   }
 }
 
@@ -53,6 +54,7 @@ resource "aws_subnet" "private_subnets" {
 
   tags = {
     Name = "${var.workload_name} Private Subnet ${count.index + 1}"
+    Tier = "private"
   }
 }
 
@@ -68,6 +70,7 @@ resource "aws_subnet" "database_subnets" {
 
   tags = {
     Name = "${var.workload_name} Database Subnet ${count.index + 1}"
+    Tier = "database"
   }
 }
 
@@ -121,6 +124,13 @@ resource "aws_route_table" "public_rt" {
   }
 }
 
+// Route Table Associations - database subnets to default/main RT
+resource "aws_route_table_association" "database_subnet_association" {
+  count          = length(aws_subnet.database_subnets)
+  subnet_id      = element(aws_subnet.database_subnets[*].id, count.index)
+  route_table_id = aws_default_route_table.default_rt.id
+}
+
 // Route Table Associations - private subnets to default/main RT
 resource "aws_route_table_association" "private_subnet_association" {
   count          = length(aws_subnet.public_subnets)
@@ -134,3 +144,4 @@ resource "aws_route_table_association" "public_subnet_association" {
   subnet_id      = element(aws_subnet.public_subnets[*].id, count.index)
   route_table_id = aws_route_table.public_rt.id
 }
+
