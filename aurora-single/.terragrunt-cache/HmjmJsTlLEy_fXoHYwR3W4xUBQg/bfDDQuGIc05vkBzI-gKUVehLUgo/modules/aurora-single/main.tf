@@ -21,7 +21,7 @@ data "aws_subnets" "database_subnets" {
 }
 
 locals {
-  region = var.region 
+  region = lookup({ }, var.region, "")  
 }
 
 resource "aws_rds_cluster" "db_cluster" {

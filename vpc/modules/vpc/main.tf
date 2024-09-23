@@ -1,5 +1,5 @@
 ################################################################################
-# VPC
+# VPC MODULE
 ################################################################################
 
 terraform {
@@ -10,26 +10,31 @@ terraform {
   }
 }
 
+locals {
+  default_vars = var.default_vars
+  region = lookup(local.default_vars.regions, var.region_alias, "")
+}
+
 data "aws_availability_zones" "available" {}
 
 // VPC
 resource "aws_vpc" "main" {
 
-  cidr_block                       = var.vpc_cidr_block
+  cidr_block                       = local.region.vpc_cidr_block
   assign_generated_ipv6_cidr_block = true
   enable_dns_support               = true
   enable_dns_hostnames             = true
   instance_tenancy                 = "default"
 
   tags = {
-    Name   = "${var.workload_name} VPC"
+    Name   = "${local.default_vars.workload_name} VPC"
   }
 }
 
 // Public Subnets
 resource "aws_subnet" "public_subnets" {
 
-  count                           = var.maxAZs <= length(data.aws_availability_zones.available.names) ? var.maxAZs : length(data.aws_availability_zones.available.names)
+  count                           = local.region.maxAZs <= length(data.aws_availability_zones.available.names) ? local.region.maxAZs : length(data.aws_availability_zones.available.names)
   vpc_id                          = aws_vpc.main.id
   cidr_block                      = cidrsubnet(aws_vpc.main.cidr_block, 6, count.index)
   ipv6_cidr_block                 = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 8, count.index)
@@ -37,7 +42,7 @@ resource "aws_subnet" "public_subnets" {
   assign_ipv6_address_on_creation = true
 
   tags = {
-    Name = "${var.workload_name} Public Subnet ${count.index + 1}"
+    Name = "${local.default_vars.workload_name} Public Subnet ${count.index + 1}"
     Tier = "public"
   }
 }
@@ -45,15 +50,15 @@ resource "aws_subnet" "public_subnets" {
 // Private Subnets
 resource "aws_subnet" "private_subnets" {
 
-  count                           = var.maxAZs <= length(data.aws_availability_zones.available.names) ? var.maxAZs : length(data.aws_availability_zones.available.names)
+  count                           = local.region.maxAZs <= length(data.aws_availability_zones.available.names) ? local.region.maxAZs : length(data.aws_availability_zones.available.names)
   vpc_id                          = aws_vpc.main.id
-  cidr_block                      = cidrsubnet(aws_vpc.main.cidr_block, 6, count.index + var.maxAZs)
-  ipv6_cidr_block                 = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 8, count.index + var.maxAZs)
+  cidr_block                      = cidrsubnet(aws_vpc.main.cidr_block, 6, count.index + local.region.maxAZs)
+  ipv6_cidr_block                 = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 8, count.index + local.region.maxAZs)
   availability_zone               = data.aws_availability_zones.available.names[count.index]
   assign_ipv6_address_on_creation = true
 
   tags = {
-    Name = "${var.workload_name} Private Subnet ${count.index + 1}"
+    Name = "${local.default_vars.workload_name} Private Subnet ${count.index + 1}"
     Tier = "private"
   }
 }
@@ -61,15 +66,15 @@ resource "aws_subnet" "private_subnets" {
 // Database Subnets
 resource "aws_subnet" "database_subnets" {
 
-  count                           = var.maxAZs <= length(data.aws_availability_zones.available.names) ? var.maxAZs : length(data.aws_availability_zones.available.names)
+  count                           = local.region.maxAZs <= length(data.aws_availability_zones.available.names) ? local.region.maxAZs : length(data.aws_availability_zones.available.names)
   vpc_id                          = aws_vpc.main.id
-  cidr_block                      = cidrsubnet(aws_vpc.main.cidr_block, 6, count.index + (var.maxAZs * 2))
-  ipv6_cidr_block                 = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 8, count.index + (var.maxAZs * 2))
+  cidr_block                      = cidrsubnet(aws_vpc.main.cidr_block, 6, count.index + (local.region.maxAZs * 2))
+  ipv6_cidr_block                 = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 8, count.index + (local.region.maxAZs * 2))
   availability_zone               = data.aws_availability_zones.available.names[count.index]
   assign_ipv6_address_on_creation = true
 
   tags = {
-    Name = "${var.workload_name} Database Subnet ${count.index + 1}"
+    Name = "${local.default_vars.workload_name} Database Subnet ${count.index + 1}"
     Tier = "database"
   }
 }
@@ -79,7 +84,7 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = "${var.workload_name} Internet Gateway"
+    Name = "${local.default_vars.workload_name} Internet Gateway"
   }
 }
 
@@ -88,7 +93,7 @@ resource "aws_egress_only_internet_gateway" "eigw" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = "${var.workload_name} Egress Gateway"
+    Name = "${local.default_vars.workload_name} Egress Gateway"
   }
 }
 
@@ -101,7 +106,7 @@ resource "aws_default_route_table" "default_rt" {
   default_route_table_id = aws_vpc.main.default_route_table_id
 
   tags = {
-    Name = "${var.workload_name} Private Route Table (Default)"
+    Name = "${local.default_vars.workload_name} Private Route Table (Default)"
   }
 }
 
@@ -120,7 +125,7 @@ resource "aws_route_table" "public_rt" {
   }
 
   tags = {
-    Name = "${var.workload_name} Public Route Table"
+    Name = "${local.default_vars.workload_name} Public Route Table"
   }
 }
 
@@ -144,4 +149,3 @@ resource "aws_route_table_association" "public_subnet_association" {
   subnet_id      = element(aws_subnet.public_subnets[*].id, count.index)
   route_table_id = aws_route_table.public_rt.id
 }
-

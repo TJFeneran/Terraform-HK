@@ -1,3 +1,4 @@
+/*
 region_primary                 = "us-east-2"
 region_failover                = "us-east-1"
 vpc_cidr_block_region_primary  = "10.0.0.0/16"
@@ -11,3 +12,4 @@ cluster_name = "cluster-123"
 region       = "us-east-2"
 region_alias = "primary"
 instances    = 0
+*/

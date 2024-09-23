@@ -7,22 +7,22 @@ variable "workload_name" {
 variable "region" {
   description = "AWS region to use"
   type        = string
-  default = ""
+  default     = ""
 
-    validation {
-      condition     = length(var.region) > 0
-      error_message = "Variable 'region' is missing or invalid. Remember to use a var-file."
-    }
+  validation {
+    condition     = length(var.region) > 0
+    error_message = "Variable 'region' is missing or invalid. Remember to use a var-file."
+  }
 }
 
 variable "instances" {
-    description = "Number of instances to deploy"
-    type = number
-    default = 0
+  description = "Number of instances to deploy"
+  type        = number
+  default     = 0
 }
 
 variable "cluster_name" {
-    description = "Name of cluster"
-    type = string
-    default = "cluster"
+  description = "Name of cluster"
+  type        = string
+  default     = "cluster"
 }

@@ -12,11 +12,11 @@ generate "provider" {
   contents  = <<EOF
 provider "aws" {
   alias = "primary"
-  region = "${local.common_vars.region_primary}"
+  region = "${local.common_vars.default_vars.regions.primary.region}"
   default_tags {
     tags = {
-      Environment = "${local.common_vars.environment}"
-      Workload    = "${local.common_vars.workload_name}"
+      Environment = "${local.common_vars.default_vars.environment}"
+      Workload    = "${local.common_vars.default_vars.workload_name}"
       Terraform   = "true"
     }
   }
@@ -24,11 +24,11 @@ provider "aws" {
 
 provider "aws" {
   alias = "failover"
-  region = "${local.common_vars.region_failover}"
+  region = "${local.common_vars.default_vars.regions.failover.region}"
   default_tags {
     tags = {
-      Environment = "${local.common_vars.environment}"
-      Workload    = "${local.common_vars.workload_name}"
+      Environment = "${local.common_vars.default_vars.environment}"
+      Workload    = "${local.common_vars.default_vars.workload_name}"
       Terraform   = "true"
     }
   }
