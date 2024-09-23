@@ -1,5 +1,4 @@
 workload_name: "HitchKick"
-awscredsprofile: "hitchkick"
 environment: "stage"
 
 region_primary: "us-east-2"

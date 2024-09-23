@@ -2,11 +2,6 @@ variable "workload_name" {
   description = "Workload Name"
   type        = string
   default     = ""
-
-  validation {
-    condition     = length(var.workload_name) > 0
-    error_message = "Variable 'workload_name' is missing or invalid."
-  }
 }
 
 variable "primary_region" {

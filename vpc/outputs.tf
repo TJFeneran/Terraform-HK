@@ -1,26 +1,25 @@
 # REGION-VPC OUTPUTS
-/*
+
 output "vpc_id" {
-  value       = aws_vpc.main.id
+  value       = module.vpc_primary.vpc_id
 }
 
 output "private_subnets" {
-  value = aws_subnet.private_subnets
+  value = module.vpc_primary.private_subnets
 }
 
 output "public_subnets" {
-  value = aws_subnet.public_subnets
+  value = module.vpc_primary.public_subnets
 }
 
 output "database_subnets" {
-  value = aws_subnet.database_subnets
+  value = module.vpc_primary.database_subnets
 }
 
 output "route_table_private" {
-  value = aws_default_route_table.default_rt
+  value = module.vpc_primary.route_table_private
 }
 
 output "route_table_public" {
-  value = aws_route_table.public_rt
+  value = module.vpc_primary.route_table_public
 }
-*/

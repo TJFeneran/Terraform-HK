@@ -23,11 +23,23 @@ module "vpc_failover" {
   }
 }
 
+//UPDATE SSM PARAMETER VALUES
+resource "aws_ssm_parameter" "vpc-cidr-primary" {
+  name  = "vpc-cidr-primary"
+  type  = "String"
+  value = module.vpc_primary.vpc_id
+}
+resource "aws_ssm_parameter" "vpc-cidr-failover" {
+  name  = "vpc-cidr-failover"
+  type  = "String"
+  value = module.vpc_failover.vpc_id
+}
+
 /////////////////////////////////////////////////////////////
 // VPC Endpoints in Primary & Failover Regions
 // S3 Gateway, DynamoDB Gateway, SSM & SSM Messages
 /////////////////////////////////////////////////////////////
-
+/*
 module "vpc_endpoints_primary" {
   source = "./modules/vpc-endpoints"
   vpc_id = module.vpc_primary.vpc_id
@@ -93,3 +105,4 @@ module "vpc_endpoints_failover" {
     aws = aws.failover
   }
 }
+*/
