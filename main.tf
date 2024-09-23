@@ -62,7 +62,7 @@ module "vpc_failover" {
 // VPC Endpoints in Primary & Failover Regions
 // S3 Gateway, DynamoDB Gateway, SSM & SSM Messages
 /////////////////////////////////////////////////////////////
-
+/*
 module "vpc_endpoints_primary" {
   source = "./modules/vpc-endpoints"
   vpc_id = module.vpc_primary.vpc_id
@@ -128,3 +128,4 @@ module "vpc_endpoints_failover" {
     aws = aws.failover
   }
 }
+*/
