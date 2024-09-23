@@ -12,7 +12,7 @@ terraform {
 
 # Indicate the input values to use for the variables of the module.
 inputs = {
-  workload_name     = "${local.common_vars.workload_name}"
+  workload_name = "${local.common_vars.workload_name}"
   tags = {
   }
 }

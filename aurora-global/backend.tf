@@ -2,7 +2,7 @@
 terraform {
   backend "s3" {
     bucket         = "hitchkick-tfstate"
-    key            = "test/terraform.tfstate"
+    key            = "aurora-global/terraform.tfstate"
     region         = "us-east-2"
     encrypt        = true
     dynamodb_table = "aws-tf-state"

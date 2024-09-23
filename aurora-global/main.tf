@@ -6,6 +6,6 @@ data "aws_ssm_parameter" "vpc-cidr-primary" {
 }
 
 output "vpc-cidr-primary" {
-    value = data.aws_ssm_parameter.vpc-cidr-primary
-    sensitive = true
+  value     = data.aws_ssm_parameter.vpc-cidr-primary
+  sensitive = true
 }
