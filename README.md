@@ -1,6 +1,12 @@
 # HitchKick Terraform
 Infrastructure-as-Code to deploy HitchKick AWS Resources
 
+## Prerequisites
+* Terraform
+* Terragrunt
+* AWS CLI
+* AWS Environment with Proper Credentials
+
 ## Scope
 * VPCs
 * Subnets (Private & Public & Database)
@@ -8,6 +14,13 @@ Infrastructure-as-Code to deploy HitchKick AWS Resources
 * Route Table(s) & Routes
 * VPC Endpoints
 * Aurora (Global or Single-region)
+
+## Common Variables
+* /common_vars.yaml
+
+## Formatting
+* `terragrunt hclfmt`
+* `terraform fmt`
 
 ## Usage
 ### 1. Configure credentials
@@ -34,15 +47,3 @@ Will generate `backend.tf`, configure *tfstate* remote storage
 `cd <module to deploy>`
 
 ### 5. `terragrunt plan|apply|destroy`
-
-## Prerequisites
-* Terraform CLI
-* AWS CLI
-* AWS Environment with Proper Credentials
-
-## Common Variables
-* /common_vars.yaml
-
-## Formatting
-* `terragrunt hclfmt`
-* `terraform fmt`
