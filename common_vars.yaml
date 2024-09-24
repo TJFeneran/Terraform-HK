@@ -1,0 +1,22 @@
+default_vars: {
+  workload_name: "HitchKick",
+  environment: "stage",
+  regions: {
+    primary: {
+      region: "us-east-2",
+      vpc_cidr_block: "10.0.0.0/16",
+      alias: "primary",
+      maxAZs: 3
+    },
+    failover: {
+      region: "us-east-1",
+      vpc_cidr_block: "10.1.0.0/16",
+      alias: "failover",
+      maxAZs: 3
+    }
+  },
+  "aurora_global": {
+    aurora_global_primary_hosts: 1,
+    aurora_global_failover_hosts: 0,
+  }
+}
