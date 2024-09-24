@@ -33,7 +33,7 @@ Will generate `backend.tf`, configure *tfstate* remote storage
 ### 4. move to subdirectory module to deploy
 `cd <module to deploy>`
 
-### 5. `terraform plan|apply|destroy`
+### 5. `terragrunt plan|apply|destroy`
 
 ## Prerequisites
 * Terraform CLI
@@ -42,3 +42,7 @@ Will generate `backend.tf`, configure *tfstate* remote storage
 
 ## Common Variables
 * /common_vars.yaml
+
+## Formatting
+* `terragrunt hclfmt`
+* `terraform fmt`
