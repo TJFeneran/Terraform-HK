@@ -157,7 +157,7 @@ resource "aws_route_table_association" "public_subnet_association" {
 // Security Groups for Interface Endpoints
 resource "aws_security_group" "sg_vpces" {
     name = "VPC Endpoints"
-    description = "Security Group applied to interface VPC Endpoints"
+    description = "Security Group applied to interface VPC Endpoints!"
     vpc_id = aws_vpc.main.id
 
     ingress {

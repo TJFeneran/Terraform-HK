@@ -35,3 +35,6 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+vpc/.terragrunt-cache/*
+aurora-global/.terragrunt-cache/*
+aurora-single/.terragrunt-cache/*
