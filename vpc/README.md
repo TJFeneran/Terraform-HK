@@ -1,6 +1,7 @@
 # Multi-Region VPCs
 ## Should be first module deployed
 ### Resources Deployed:
+* Primary / failover VPCs
 * Subnets: Private, Public, Database
 * Route Tables (private (default), public)
 * VPC Endpoints (S3, DynamoDB, SSM)
