@@ -1,7 +1,9 @@
+# To be changed per environment
+# [dev]
 default_vars: {
   workload_name: "HitchKick",
   workload_name_abbr: "hk", #used for attributes that follow stricter syntax requirements (e.g. no spaces allowd in ssm param store Name)
-  environment: "stage",
+  environment: "dev",
   regions: {
     primary: {
       region: "us-east-2",
