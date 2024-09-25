@@ -12,6 +12,3 @@
 * Run `terragrunt init` from root `/`
 * `cd` to this directory
 * `terragrunt apply`
-
-### vars
-* No `.tfvars` required
