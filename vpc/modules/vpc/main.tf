@@ -107,6 +107,7 @@ resource "aws_default_route_table" "default_rt" {
 
   tags = {
     Name = "${local.default_vars.workload_name} Private Route Table (Default)"
+    Environment = local.default_vars.environment
   }
 }
 
@@ -126,6 +127,7 @@ resource "aws_route_table" "public_rt" {
 
   tags = {
     Name = "${local.default_vars.workload_name} Public Route Table"
+    Environemnt = local.default_vars.environment
   }
 }
 
