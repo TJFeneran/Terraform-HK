@@ -5,10 +5,10 @@
 * Subnets: Private, Public, Database
 * Route Tables (private (default), public)
 * VPC Endpoints
-* - S3
-* - DynamoDB
-* - SSM
-* ^Customizable per region
+ - S3
+ - DynamoDB
+ - SSM
+ -  ^Customizable per region
 
 ### Usage
 * Run `terragrunt init` from root `/`
