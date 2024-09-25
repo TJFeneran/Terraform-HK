@@ -1,3 +1,8 @@
+################################################################################
+# Root HCL
+# Sets remote backend & configures a provider for each region
+################################################################################
+
 locals {
   common_vars = yamldecode(file("common_vars.yaml"))
 }

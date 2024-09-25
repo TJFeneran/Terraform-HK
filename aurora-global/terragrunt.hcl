@@ -1,3 +1,6 @@
+################################################################################
+# Global Aurora Cluster
+################################################################################
 
 include "root" {
   path = find_in_parent_folders()
@@ -10,7 +13,6 @@ locals {
 terraform {
 }
 
-# Indicate the input values to use for the variables of the module.
 inputs = {
   default_vars = local.common_vars.default_vars
 }
