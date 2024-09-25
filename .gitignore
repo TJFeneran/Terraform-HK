@@ -5,8 +5,10 @@
 **/.terragrunt-cache/*
 
 # ignore auto-generated terragrunt
-./provider.tf
-./backend.tf
+**/.provider.tf
+**/.provider.tf*
+**/.backend.tf
+**/.backend.tf*
 
 # .tfstate files
 *.tfstate
