@@ -1,7 +1,7 @@
 # Single-Region Aurura Cluster with _n_ Instances
 
 ### Init 
-* Run `terragrunt init` from `/` root
+* Run `terragrunt init` from root `/`
 * `cd` to this (or another) directory
 
 ### vars
