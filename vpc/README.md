@@ -8,7 +8,6 @@
  - S3
  - DynamoDB
  - SSM
- -  ^Customizable per region
 
 ### Usage
 * Run `terragrunt init` from root `/`
