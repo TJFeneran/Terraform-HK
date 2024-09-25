@@ -25,7 +25,7 @@ Infrastructure-as-Code to deploy HitchKick AWS Resources
 ## Usage
 ### 1. Configure credentials
 Local (default config file):
-* (manual) set a profile
+* set a default profile
 Remote:
 * TBD
 
