@@ -47,3 +47,4 @@ Will generate `backend.tf`, configure *tfstate* remote storage
 `cd <module to deploy>`
 
 ### 5. `terragrunt plan|apply|destroy`
+Pass a `.tfvars` file for each distinct resource, see `example.tfvars` in each module dir for more info (except ./vpc)
