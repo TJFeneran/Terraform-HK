@@ -44,7 +44,7 @@ Will generate `backend.tf`, configure *tfstate* remote storage
 
 ### 4. Deploy `vpc` module first
 * `cd vpc` > `terragrunt apply`
-* *Note:* `tfvars` paramter is *not* needed for the `vpc` module
+* **Note:** `tfvars` paramter is **not** needed for the `vpc` module
 
 ### 5. Deploy other modules as needed
 * `cd` to other modues (ex: `aurora-global`).
