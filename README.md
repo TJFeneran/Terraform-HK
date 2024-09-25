@@ -44,8 +44,7 @@ Remote:
 Will generate `backend.tf`, configure *tfstate* remote storage
 
 ### 4. Apply `vpc` first
-`cd vpc
-terragrunt apply`
+`cd vpc` > `terragrunt apply`
 
 ### 5. `terragrunt plan|apply|destroy`
 Pass a `.tfvars` file for each distinct resource, see `example.tfvars` in each module dir for more info (except ./vpc)
