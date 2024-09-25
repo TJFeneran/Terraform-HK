@@ -3,7 +3,7 @@
 
 ## Usage
 
-### Init from root first: `terragrunt init` 
+### Init from `/` root first: `terragrunt init` then return to this (or other) directory
 
 ### Open & edit specific vars for existing Aurora cluster, or copy `example.tfvars` to new file and edit variables, and deploy new cluster
 
