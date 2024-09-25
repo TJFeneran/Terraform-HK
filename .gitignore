@@ -6,11 +6,6 @@
 **/backend.tf
 **/provider.tf
 
-# ignore auto-generated terragrunt
-**/.provider.tf
-**/.provider.tf*
-
-
 # .tfstate files
 *.tfstate
 *.tfstate.*
