@@ -42,10 +42,14 @@ Remote:
 ### 3. `terragrunt init` in root
 Will generate `backend.tf`, configure *tfstate* remote storage
 
-### 4. Apply `vpc` first
-`cd vpc` > `terragrunt apply`
+### 4. Deploy `vpc` module first
+* `cd vpc` > `terragrunt apply`
+* note: no `tfvars` paramter is needed for the `vpc` module
 
-### 5. `terragrunt plan|apply|destroy`
-`cd` to other modues. 
+### 5. Deploy other modules as needed
+* `cd` to other modues (ex: `aurora-global`).
+* Pass a `.tfvars` file for each distinct resource - see `example.tfvars` in each module dir for more info 
+* `terragrunt plan|apply|destroy var-file=<varfilename>.tfvars`
+* 
 
-Pass a `.tfvars` file for each distinct resource, see `example.tfvars` in each module dir for more info (except ./vpc)
+
