@@ -4,6 +4,8 @@
 // VPC Endpoints in both regions: ssm,dynamodb,s3
 /////////////////////////////////////////////////////////////
 
+
+# CREATE PRIMARY REGION VPC RESOURCES
 module "vpc_primary" {
   source       = "./modules/vpc"
   region_alias = "primary"
@@ -41,6 +43,7 @@ module "vpc_primary" {
   }
 }
 
+# CREATE PRIMARY REGION VPC RESOURCES
 module "vpc_failover" {
   source       = "./modules/vpc"
   region_alias = "failover"
@@ -76,4 +79,22 @@ module "vpc_failover" {
   providers = {
     aws = aws.failover
   }
+}
+
+# SSM PARAMETER STORE - Primary Region VPC ID
+resource "aws_ssm_parameter" "vpc-id" {
+  name  = "${var.default_vars.workload_name_abbr}-vpc-id"
+  type  = "String"
+  value = module.vpc_primary.vpc_id
+
+  provider = aws.primary
+}
+
+# SSM PARAMETER STORE - Failover Region VPC ID
+resource "aws_ssm_parameter" "failover-region-vpc-id" {
+  name  = "${var.default_vars.workload_name_abbr}-vpc-id"
+  type  = "String"
+  value = module.vpc_failover.vpc_id
+
+  provider = aws.failover
 }
