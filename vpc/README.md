@@ -1,6 +1,7 @@
 # Multi-Region VPC Setup
 ## VPC resources in both regions
-### Should be first thing deployed
+### Should be first module deployed
+
 * Subnets: Private, Public, Database
 * Route Tables (private (default), public)
 * VPC Endpoints
