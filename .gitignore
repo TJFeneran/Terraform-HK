@@ -3,12 +3,13 @@
 **/.terraform/*
 **/.terragrunt-cache
 **/.terragrunt-cache/*
+**/backend.tf
+**/provider.tf
 
 # ignore auto-generated terragrunt
 **/.provider.tf
 **/.provider.tf*
-**/.backend.tf
-**/.backend.tf*
+
 
 # .tfstate files
 *.tfstate
