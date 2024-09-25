@@ -17,17 +17,17 @@ data "aws_ssm_parameter" "vpc-cidr" {
 
 // Create Aurora cluster in this region
 resource "aws_rds_cluster" "db_cluster" {
-  engine             = "aurora-postgresql"
-  engine_version     = "15.4"
-  master_username    = "root"
-  master_password    = random_password.master.result
-  cluster_identifier = var.cluster_name
+  engine               = "aurora-postgresql"
+  engine_version       = "15.4"
+  master_username      = "root"
+  master_password      = random_password.master.result
+  cluster_identifier   = var.cluster_name
   db_subnet_group_name = aws_db_subnet_group.aurora_database.name
   skip_final_snapshot  = true
 
   // storage encryption
-  kms_key_id           = aws_kms_key.clusterkey.arn
-  storage_encrypted    = true
+  kms_key_id        = aws_kms_key.clusterkey.arn
+  storage_encrypted = true
 
   // don't keep up with future engine version upgrades on this resource
   lifecycle {

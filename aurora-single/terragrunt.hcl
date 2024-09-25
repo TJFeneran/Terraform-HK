@@ -11,7 +11,7 @@ locals {
 }
 
 terraform {
-  source = "./modules/aurora-single"
+
 }
 
 # Indicate the input values to use for the variables of the module.
