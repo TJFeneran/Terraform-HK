@@ -2,7 +2,7 @@
 
 ### Init 
 * Run `terragrunt init` from root `/`
-* `cd` to this (or another) directory
+* `cd` to this directory
 
 ### vars
 * Open & edit specific vars file for existing resource (based on name variable)
