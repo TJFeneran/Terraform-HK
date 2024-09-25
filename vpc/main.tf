@@ -12,6 +12,7 @@ module "vpc_primary" {
   default_vars = var.default_vars
 
   endpoints = {
+    /*
     s3 = {
       service         = "s3"
       service_type    = "Gateway"
@@ -36,6 +37,7 @@ module "vpc_primary" {
       subnet_ids          = module.vpc_primary.public_subnets[*].id
       tags                = { Name = "${var.default_vars.workload_name} SSM Messages Interface VPCe" }
     }
+    */
   }
 
   providers = {
@@ -50,6 +52,7 @@ module "vpc_failover" {
   default_vars = var.default_vars
 
   endpoints = {
+    /*
     s3 = {
       service         = "s3"
       service_type    = "Gateway"
@@ -74,6 +77,7 @@ module "vpc_failover" {
       subnet_ids          = module.vpc_failover.public_subnets[*].id
       tags                = { Name = "${var.default_vars.workload_name} SSM Messages Interface VPCe" }
     }
+    */
   }
 
   providers = {
