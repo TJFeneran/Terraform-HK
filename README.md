@@ -23,9 +23,8 @@ Infrastructure-as-Code to deploy HitchKick AWS Resources
 * `terraform fmt`
 
 ## Usage
-### 1. Configure credentials
-Local (default config file):
-* set a default profile
+### 1. Configure credentials (Local)
+* `default` aws creds profile
 Remote:
 * TBD
 
