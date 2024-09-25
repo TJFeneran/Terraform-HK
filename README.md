@@ -2,10 +2,9 @@
 Infrastructure-as-Code to deploy HitchKick AWS Resources
 
 ## Prerequisites
-* Terraform
-* Terragrunt
-* AWS CLI
-* AWS Environment with Proper Credentials
+* Terraform CLI
+* Terragrunt CLI
+* AWS CLI with proper credentials to deploy
 
 ## Scope
 * VPCs
