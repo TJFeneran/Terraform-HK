@@ -3,9 +3,13 @@
 
 ## Usage
 
-### Init from `/` root first: `terragrunt init` then return to this (or other) directory
+### Init 
+* Run `terragrunt init` from `/` root
+* `cd` to this (or another) directory
 
-### Open & edit specific vars for existing Aurora cluster, or copy `example.tfvars` to new file and edit variables, and deploy new cluster
+### vars
+* Open & edit specific vars file for existing resource (based on name variable)
+* OR copy `example.tfvars` to new file and edit variables, and deploy new cluster
 
-## `terragrunt apply -var-file=newaurora.tfvars`
-### *tfvars file required*
+### `terragrunt apply -var-file=newaurora.tfvars`
+* Always include a `.tfvars` file here, see `example.tfvars` for example
