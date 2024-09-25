@@ -16,7 +16,7 @@ Infrastructure-as-Code to deploy HitchKick AWS Resources
 * Aurora (Global or Single-region)
 
 ## Common Variables
-* /common_vars.yaml
+* `common_vars.yaml` in root
 
 ## Formatting
 * `terragrunt hclfmt`
