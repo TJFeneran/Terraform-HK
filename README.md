@@ -43,8 +43,9 @@ Remote:
 ### 3. `terragrunt init` in root
 Will generate `backend.tf`, configure *tfstate* remote storage
 
-### 4. move to subdirectory module to deploy (apply `vpc` first)
-`cd <module to deploy>`
+### 4. Apply `vpc` first
+`cd vpc
+terragrunt apply`
 
 ### 5. `terragrunt plan|apply|destroy`
 Pass a `.tfvars` file for each distinct resource, see `example.tfvars` in each module dir for more info (except ./vpc)
