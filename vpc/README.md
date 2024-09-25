@@ -1,5 +1,5 @@
 # Multi-Region VPCs
-### *Should be first module deployed*
+## Should be first module deployed
 ### Resources Deployed:
 * Subnets: Private, Public, Database
 * Route Tables (private (default), public)
