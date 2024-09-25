@@ -7,5 +7,5 @@
 ### Usage
 * Run `terragrunt init` from root `/`
 * `cd` to this directory
-* `terragrunt apply -var-file=*newaurora.tfvars*`
+* `terragrunt apply -var-file=<newaurora>.tfvars`
 * Always include a `.tfvars` file here, see `example.tfvars` for example
