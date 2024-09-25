@@ -1,8 +1,5 @@
 # Single-Region Aurura Cluster with _n_ Instances
 
-
-## Usage
-
 ### Init 
 * Run `terragrunt init` from `/` root
 * `cd` to this (or another) directory
