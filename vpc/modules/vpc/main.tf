@@ -207,3 +207,4 @@ resource "aws_vpc_endpoint" "this" {
   tags = merge(var.tags, lookup(each.value, "tags", {}))
 
 }
+
