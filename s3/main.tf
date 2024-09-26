@@ -23,6 +23,6 @@ resource "aws_s3_bucket" "bucket" {
     Name        = "${var.default_vars.workload_name}"
     Environment = "${var.default_vars.environment}"
     Description = "${var.description}"
-    Terraform = "true"
+    Terraform   = "true"
   }
 }

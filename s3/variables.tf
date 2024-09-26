@@ -34,6 +34,6 @@ variable "description" {
 
 variable "tags" {
   description = "Tags to add"
-  type = map
-  default = {}
+  type        = map(any)
+  default     = {}
 }
