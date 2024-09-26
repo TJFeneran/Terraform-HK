@@ -47,8 +47,7 @@ Will generate `backend.tf`, configure *tfstate* remote storage
 
 ### 5. Deploy other modules as needed
 * `cd` to other modues (ex: `aurora-global`).
-* Pass a `.tfvars` file for each distinct resource - see `example.tfvars` in each module dir for more info 
+* Pass a `.tfvars` file for each distinct resource - see `example.tfvars` in each module for more info 
 * `terragrunt plan|apply|destroy var-file=<varfilename>.tfvars`
-* 
 
 
